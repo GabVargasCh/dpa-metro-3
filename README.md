@@ -33,6 +33,8 @@ Si logramos resolver estas dos preguntas sencillas con una solucion compleja y r
 
 Al realizar un modelo predictivo debemos tener en cuenta que estamos haciendo estimaciones y son sensibles al error. Por eso es muy importante hacer un monitoreo online y offline de nuestro modelo. Es decir ver en batch las tasas de error por arriba y por abajo. El hecho de estimar mas afluencia de la real impactaria en la movilizacion de personal (costos y tiempo) y en quitar personal a una estacion (aunque en principio no lo necesitaria). Pero estimar por abajo la afluencia de una estacion puede afectar a cientos de miles de usuarios ya que posiblemente desplazariamos al personal a otra estacion incurriendo en costos y en afectaciones al servicio. Por lo que sera importante cuidar mas el error por abajo.
 
+### Metricas de fairness y atributos protegidos
+
 Estas predicciones pueden llevar a que hagamos desplacemos el personal de una estacion hacia otra de forma mas constante si estimamos constantemente por abajo la afluencia de alguna estacion. Entonces cuando la afluencia sea baja la denominaremos como un negativo y cuando sea mas alta como un positivo. Entonces.
 
 - Afluencia alta, Estimada como alta: verdadero positivo
@@ -40,7 +42,7 @@ Estas predicciones pueden llevar a que hagamos desplacemos el personal de una es
 - Afluencia baja, Estimada como baja: verdadero negativo
 - Afluencia alta, Estimada como baja: falso negativo
 
-Con estas definiciones podemos ver que lo que mas afectaria serian los **falsos negativos** pues estariamos estimando menos afluencia a la real y posiblemente movilizariamos al personal de esa estacion. Una de las variables perjudicadas puede ser la linea o la estacion mas cercana. Es decir si hay lineas que se ven mas afectadas que otras en su **FNR**. Por otra parte si para la variable *estacion mas cercana* puede ser que haya alguna que este presente cuando hay mayor **FPR** que para las demas entonces. Entonces esas estaciones se pueden ver afectadas ya que si para su estacion vecina estamos estimando mayor afluencia de la habitual, la accion es desplazar personal de la estacion mas cercana y puede ser que la perjudiquemos constantemente o en mayor medida que las demas y tener un sesgo con implicaciones eticas.
+Con estas definiciones podemos ver que lo que mas afectaria serian los **falsos negativos** pues estariamos estimando menos afluencia a la real y posiblemente movilizariamos al personal de esa estacion. Una de las variables perjudicadas puede ser la linea o la estacion mas cercana. Es decir si hay lineas que se ven mas afectadas que otras en su **FNR**. Por otra parte si para la variable *estacion mas cercana* puede ser que haya alguna que este presente cuando hay mayor **FPR** que para las demas entonces. Entonces esas estaciones se pueden ver afectadas ya que si para su estacion vecina estamos estimando mayor afluencia de la habitual, la accion es desplazar personal de la estacion mas cercana y puede ser que la perjudiquemos constantemente o en mayor medida que las demas y tener un sesgo con implicaciones eticas. Por ello tenemos que tomar la variable *linea* y *nearest_station* como atributos protegidos.
 
 
 
